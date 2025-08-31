@@ -5,5 +5,5 @@ CREATE EXTERNAL TABLE IF NOT EXISTS celldata.bronze_opencellid(
 )
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
 WITH SERDEPROPERTIES ('separatorChar'=',','quoteChar'='"')
-LOCATION 's3://REPLACE-RAW/bronze/opencellid/'
+LOCATION 's3://celldata-raw-w1/bronze/opencellid/'
 TBLPROPERTIES ('has_encrypted_data'='true');

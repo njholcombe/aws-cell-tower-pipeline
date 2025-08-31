@@ -1,0 +1,45 @@
+{
+    "FunctionName": "opencellid-pull",
+    "FunctionArn": "arn:aws:lambda:us-west-2:575108915591:function:opencellid-pull",
+    "Runtime": "python3.12",
+    "Role": "arn:aws:iam::575108915591:role/opencellid-pull-role",
+    "Handler": "lambda_function.handler",
+    "CodeSize": 630,
+    "Description": "",
+    "Timeout": 3,
+    "MemorySize": 128,
+    "LastModified": "2025-08-26T21:40:06.274+0000",
+    "CodeSha256": "+omGpXfnXlJAucWnxFQhWAzfVwHMhGf1wehPzo1uERY=",
+    "Version": "$LATEST",
+    "Environment": {
+        "Variables": {
+            "PARAM_NAME": "/celldata/opencellid/token",
+            "RAW_BUCKET": "celldata-raw-1"
+        }
+    },
+    "TracingConfig": {
+        "Mode": "PassThrough"
+    },
+    "RevisionId": "6c1340cf-8af6-4562-ad2b-daae0d84d519",
+    "State": "Pending",
+    "StateReason": "The function is being created.",
+    "StateReasonCode": "Creating",
+    "PackageType": "Zip",
+    "Architectures": [
+        "x86_64"
+    ],
+    "EphemeralStorage": {
+        "Size": 512
+    },
+    "SnapStart": {
+        "ApplyOn": "None",
+        "OptimizationStatus": "Off"
+    },
+    "RuntimeVersionConfig": {
+        "RuntimeVersionArn": "arn:aws:lambda:us-west-2::runtime:aa140c0e9a9c41d993cb36eaf76013968a27ec935d7665a4368d6b0ba10a0f7e"
+    },
+    "LoggingConfig": {
+        "LogFormat": "Text",
+        "LogGroup": "/aws/lambda/opencellid-pull"
+    }
+}
