@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS celldata.silver_opencellid;
 
 CREATE TABLE celldata.silver_opencellid
 WITH (
@@ -41,4 +40,3 @@ SELECT
   radio,mcc,mnc,area,cell,lon,lat,range,samples,created_ts,updated_ts,ingest_date
 FROM dedup
 WHERE rn = 1;
-
