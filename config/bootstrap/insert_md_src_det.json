@@ -1,0 +1,12 @@
+[
+  {
+    "detail_value": {"S": "token"},
+    "detail_name": {"S": "auth_type"},
+    "source_id": {"N": "1"}
+  },
+  {
+    "detail_value": {"S": "https://opencellid.org/downloadFile"},
+    "detail_name": {"S": "connection_info"},
+    "source_id": {"N": "1"}
+  }
+]
