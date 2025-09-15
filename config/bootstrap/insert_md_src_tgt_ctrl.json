@@ -1,0 +1,7 @@
+{
+  "enabled": {"BOOL": true},
+  "tgt_id": {"N": "1"},
+  "description": {"S": "OpenCellID raw feed lands in Raw Zone"},
+  "src_id": {"N": "1"},
+  "relationship_type": {"S": "ingest"}
+}
