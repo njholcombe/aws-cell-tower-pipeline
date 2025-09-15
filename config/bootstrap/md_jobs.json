@@ -1,0 +1,9 @@
+{
+  "job_name": {"S": "Daily OpenCellID Ingest"},
+  "source_id": {"N": "1"},
+  "job_cmd": {"S": "arn:aws:lambda:us-west-2:575108915591:function:opencellid-pull"},
+  "status": {"S": "ENABLED"},
+  "target_dataset_id": {"S": "silver-opencellid"},
+  "job_id": {"N": "1"},
+  "job_type": {"S": "ingest"}
+}
