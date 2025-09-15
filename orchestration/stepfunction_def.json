@@ -1,0 +1,254 @@
+{
+  "Comment": "ocid ingest -> s3_raw -> msck -> insert into celldata.silver_opencellid",
+  "StartAt": "LambdaStartJob",
+  "States": {
+    "LambdaStartJob": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:us-west-2:575108915591:function:startjob:$LATEST",
+        "Payload": {
+          "ingest_date.$": "$.ingest_date",
+          "rule_arn.$": "$.rule_arn"
+        }
+      },
+      "ResultPath": "$.JobExecution",
+      "Next": "LambdaGetJobDetails",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.ErrorInfo",
+          "Next": "LambdaJobFail"
+        }
+      ]
+    },
+    "LambdaGetJobDetails": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:us-west-2:575108915591:function:getjobdetails:$LATEST",
+        "Payload": {
+          "job_id.$": "$.JobExecution.Payload.job_id",
+          "ingest_date.$": "$.JobExecution.Payload.ingest_date",
+          "execution_id.$": "$.JobExecution.Payload.execution_id"
+        }
+      },
+      "ResultPath": "$.JobDetails",
+      "Next": "LambdaGetFile",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.ErrorInfo",
+          "Next": "LambdaJobFail"
+        }
+      ]
+    },
+    "LambdaGetFile": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:us-west-2:575108915591:function:opencellid-pull:$LATEST",
+        "Payload": {
+          "job_details.$": "$.JobDetails.Payload"
+        }
+      },
+      "ResultPath": "$.download",
+      "Next": "WaitRaw",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.ErrorInfo",
+          "Next": "LambdaJobFail"
+        }
+      ]
+    },
+    "WaitRaw": {
+      "Type": "Wait",
+      "Seconds": 5,
+      "Next": "MsckStart"
+    },
+    "MsckStart": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::athena:startQueryExecution",
+      "Parameters": {
+        "QueryString": "MSCK REPAIR TABLE celldata.bronze_opencellid;",
+        "WorkGroup": "primary",
+        "QueryExecutionContext": {
+          "Database": "celldata"
+        }
+      },
+      "ResultPath": "$.msck",
+      "Next": "MsckPollWait",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.ErrorInfo",
+          "Next": "LambdaJobFail"
+        }
+      ],
+      "Comment": "MSCK repair external table for newly added partition."
+    },
+    "MsckPollWait": {
+      "Type": "Wait",
+      "Seconds": 1,
+      "Next": "MsckGet"
+    },
+    "MsckGet": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::athena:getQueryExecution",
+      "Parameters": {
+        "QueryExecutionId.$": "$.msck.QueryExecutionId"
+      },
+      "ResultPath": "$.msckStatus",
+      "Next": "MsckCheck",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.ErrorInfo",
+          "Next": "LambdaJobFail"
+        }
+      ]
+    },
+    "MsckCheck": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.msckStatus.QueryExecution.Status.State",
+          "StringEquals": "SUCCEEDED",
+          "Next": "LambdaBuildCuratedSql"
+        },
+        {
+          "Variable": "$.msckStatus.QueryExecution.Status.State",
+          "StringEquals": "FAILED",
+          "Next": "LambdaJobFail"
+        }
+      ],
+      "Default": "MsckPollWait"
+    },
+    "LambdaBuildCuratedSql": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:us-west-2:575108915591:function:buildintellicell_curated_sql:$LATEST",
+        "Payload": {
+          "ingest_date.$": "$.JobExecution.Payload.ingest_date",
+          "execution_id.$": "$.JobExecution.Payload.execution_id"
+        }
+      },
+      "ResultPath": "$.build",
+      "Next": "CtasStart",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.ErrorInfo",
+          "Next": "LambdaJobFail"
+        }
+      ],
+      "Comment": "Generate sql to insert data from raw layer into curated layer."
+    },
+    "CtasStart": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::athena:startQueryExecution",
+      "Parameters": {
+        "QueryString.$": "$.build.Payload.sql",
+        "WorkGroup": "primary",
+        "QueryExecutionContext": {
+          "Database": "celldata"
+        }
+      },
+      "ResultPath": "$.ctas",
+      "Next": "CtasPollWait",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.ErrorInfo",
+          "Next": "LambdaJobFail"
+        }
+      ]
+    },
+    "CtasPollWait": {
+      "Type": "Wait",
+      "Seconds": 1,
+      "Next": "CtasGet"
+    },
+    "CtasGet": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::athena:getQueryExecution",
+      "Parameters": {
+        "QueryExecutionId.$": "$.ctas.QueryExecutionId"
+      },
+      "ResultPath": "$.ctasStatus",
+      "Next": "CtasCheck",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.ErrorInfo",
+          "Next": "LambdaJobFail"
+        }
+      ]
+    },
+    "CtasCheck": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.ctasStatus.QueryExecution.Status.State",
+          "StringEquals": "SUCCEEDED",
+          "Next": "LambdajobComplete"
+        },
+        {
+          "Variable": "$.ctasStatus.QueryExecution.Status.State",
+          "StringEquals": "FAILED",
+          "Next": "LambdaJobFail"
+        }
+      ],
+      "Default": "CtasPollWait"
+    },
+    "LambdajobComplete": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:us-west-2:575108915591:function:completejob:$LATEST",
+        "Payload": {
+          "job_id.$": "$.JobExecution.Payload.job_id",
+          "execution_id.$": "$.JobExecution.Payload.execution_id",
+          "status": "COMPLETED"
+        }
+      },
+      "End": true,
+      "Comment": "Complete job update MD_JOBEXECUTIONS with Status = COMPLETED"
+    },
+    "LambdaJobFail": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:us-west-2:575108915591:function:completejob:$LATEST",
+        "Payload": {
+          "job_id.$": "$.JobExecution.Payload.job_id",
+          "execution_id.$": "$.JobExecution.Payload.execution_id",
+          "status": "FAILED",
+          "error_code.$": "$.ErrorInfo.Error",
+          "error_message.$": "$.ErrorInfo.Cause"
+        }
+      },
+      "ResultPath": "$.FailureResult",
+      "End": true,
+      "Comment": "complete job updates MD_JOBEXECUTIONS with STATUS = FAILED"
+    }
+  }
+}
