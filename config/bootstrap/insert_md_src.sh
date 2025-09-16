@@ -4,7 +4,7 @@
 aws dynamodb put-item \
   --table-name MD_SRC \
   --item '{
-    "detail_value": {"S": "token"},
-    "detail_name": {"S": "auth_type"},
-    "source_id": {"N": "1"}
-  }'
+  "enabled": {"BOOL": true},
+  "source_name": {"S": "OpenCellID"},
+  "source_id": {"N": "1"}
+}'
