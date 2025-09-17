@@ -1,0 +1,32 @@
+{
+  "MD_JOB_CONFIG": [
+    {
+      "PutRequest": {
+        "Item": {
+          "job_id": {"N": "1"},
+          "sk": {"S": "status#ActiveConfig"},
+          "config_value": {"S": "Y"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "job_id": {"N": "1"},
+          "sk": {"S": "stepfn#Name"},
+          "config_value": {"S": "sf-intellicell-ingest-etl-dev-weekly-v001"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "job_id": {"N": "1"},
+          "sk": {"S": "trigger#EventBridge"},
+          "config_value": {"S": "Daily_OpenCellID_Ingest"}
+        }
+      }
+    }
+  ]
+}
+

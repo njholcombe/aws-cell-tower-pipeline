@@ -1,0 +1,13 @@
+[
+    {
+        "enabled": {
+            "BOOL": true
+        },
+        "source_name": {
+            "S": "OpenCellID"
+        },
+        "source_id": {
+            "N": "1"
+        }
+    }
+]

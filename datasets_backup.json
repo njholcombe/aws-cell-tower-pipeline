@@ -1,0 +1,27 @@
+{
+    "Items": [
+        {
+            "table_name": {
+                "S": "opencellid_silver"
+            },
+            "database": {
+                "S": "celldata"
+            },
+            "dataset_id": {
+                "S": "silver-opencellid"
+            },
+            "dataset_name": {
+                "S": "Silver OpenCellID"
+            },
+            "target_id": {
+                "N": "2"
+            },
+            "status": {
+                "S": "ACTIVE"
+            }
+        }
+    ],
+    "Count": 1,
+    "ScannedCount": 1,
+    "ConsumedCapacity": null
+}

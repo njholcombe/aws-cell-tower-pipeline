@@ -1,0 +1,51 @@
+{
+    "Items": [
+        {
+            "job_id": {
+                "N": "1"
+            },
+            "config_value": {
+                "S": "Daily"
+            },
+            "sk": {
+                "S": "frequency#Type"
+            }
+        },
+        {
+            "job_id": {
+                "N": "1"
+            },
+            "config_value": {
+                "S": "Y"
+            },
+            "sk": {
+                "S": "status#ActiveConfig"
+            }
+        },
+        {
+            "job_id": {
+                "N": "1"
+            },
+            "config_value": {
+                "S": "sf-intellicell-ingest-etl-dev-weekly-v001"
+            },
+            "sk": {
+                "S": "stepfn#Name"
+            }
+        },
+        {
+            "job_id": {
+                "N": "1"
+            },
+            "config_value": {
+                "S": "Daily_OpenCellID_Ingest"
+            },
+            "sk": {
+                "S": "trigger#EventBridge"
+            }
+        }
+    ],
+    "Count": 4,
+    "ScannedCount": 4,
+    "ConsumedCapacity": null
+}

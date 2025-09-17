@@ -1,0 +1,38 @@
+{
+  "MD_TGT": [
+    {
+      "PutRequest": {
+        "Item": {
+          "enabled": { "BOOL": true },
+          "target_name": { "S": "Raw Zone" },
+          "target_type": { "S": "s3" },
+          "target_location": { "S": "s3://celldata-raw-w1" },
+          "target_id": { "N": "1" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "enabled": { "BOOL": true },
+          "target_name": { "S": "Curated Zone" },
+          "target_type": { "S": "s3" },
+          "target_location": { "S": "s3://celldata-curated-w1" },
+          "target_id": { "N": "2" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "enabled": { "BOOL": true },
+          "target_name": { "S": "Results Zone" },
+          "target_type": { "S": "s3" },
+          "target_location": { "S": "s3://celldata-results-w1" },
+          "target_id": { "N": "3" }
+        }
+      }
+    }
+  ]
+}
+

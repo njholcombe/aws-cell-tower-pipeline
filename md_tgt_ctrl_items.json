@@ -1,0 +1,35 @@
+[
+    {
+        "target_id": {
+            "N": "3"
+        },
+        "enabled": {
+            "S": "Y"
+        },
+        "target_name": {
+            "S": "Results Zone"
+        }
+    },
+    {
+        "target_id": {
+            "N": "2"
+        },
+        "enabled": {
+            "S": "Y"
+        },
+        "target_name": {
+            "S": "Curated Zone"
+        }
+    },
+    {
+        "target_id": {
+            "N": "1"
+        },
+        "enabled": {
+            "S": "Y"
+        },
+        "target_name": {
+            "S": "Raw Zone"
+        }
+    }
+]
