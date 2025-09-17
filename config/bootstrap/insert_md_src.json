@@ -1,5 +1,6 @@
 {
   "enabled": {"BOOL": true},
   "source_name": {"S": "OpenCellID"},
+  "source_description": {"S": "OpenCellID raw feed lands in Raw Zone"}
   "source_id": {"N": "1"}
 }
