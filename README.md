@@ -29,11 +29,20 @@ The pipeline automates data collection, applies transformations, and persists re
 
 ## Repository Structure
 ```text
-aws-cell-tower-pipeline/
-├── lambdas/         # Python Lambda source
-├── sql/             # DDL/DML for Athena and Redshift
-├── stepfunctions/   # State machine JSON definitions
-├── docs/            # Architecture diagrams and notes
+.
+├── .github/
+│   └── workflows/            # CI/CD workflows
+├── config/                   # runtime/env configuration (JSON/YAML)
+├── data_contracts/           # schemas, column mappings, DQ rules
+├── docs/                     # diagrams and project docs
+├── etl/                      # Lambda/Glue code and transforms
+├── infra/                    # IaC: CDK/Terraform/CloudFormation
+├── orchestration/            # Step Functions, EventBridge, handlers
+├── samples/                  # sample data, Athena DDL/CTAS
+├── security/                 # IAM policies, KMS config, guardrails
+├── tools/                    # local scripts and helpers
+├── validate/                 # tests, linters, data validation checks
 └── README.md
+
 
 
