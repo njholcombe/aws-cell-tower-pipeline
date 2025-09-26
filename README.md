@@ -1,8 +1,8 @@
 # Cell Tower Data Pipeline
 
 ## Overview
-This project implements an **ingestion → transformation → storage** pipeline for cell tower data.  
-The pipeline automates data collection, applies transformations, and persists results into a target data lake or warehouse.
+An **ingestion → transformation → storage** pipeline for cell tower data.  
+The pipeline automates data collection, applies transformations, and persists results into a target datalake house.
 
 ## Architecture
 1. **Ingestion**  
@@ -11,21 +11,19 @@ The pipeline automates data collection, applies transformations, and persists re
    - Metadata-driven configuration stored in DynamoDB.  
 
 2. **Transformation**  
-   - Raw CSV/JSON data is normalized and cleaned.  
-   - Deduplication and filtering applied.  
-   - Curated zone created for downstream analytics.  
+   - CSV/JSON data is loaded to raw zone.  
+   - Deduplication and filtering loaded to curated zone.   
 
 3. **Storage**  
-   - Raw, curated, and results zones stored in Amazon S3.  
-   - Athena external tables provide query access.  
-   - (Optional) Data can be loaded into a warehouse (e.g., Redshift).  
+   - Raw, curated, and presentation layer/zones stored in Amazon S3.  
+   - Athena external tables provide query access. 
 
 ## Components
-- **Lambda Functions**: Ingestion, transformation, error handling  
-- **DynamoDB Metadata Tables**: Job configuration, source/target control, execution tracking  
-- **Step Functions**: Orchestration of jobs with retry and error handling  
-- **EventBridge**: Scheduling pipeline runs  
-- **Athena/Redshift**: Query layer  
+- **Lambda Functions**: startjob, getjobdetails, Daily_OpenCellID_Ingest, completejob  
+- **DynamoDB Metadata Table entries**: job, job details, source details, target details  
+- **Step Functions**: sf-intellicell-ingest-etl-dev-weekly-v001
+- **EventBridge Rule**: Daily_OpenCellID_Ingest( Scheduling pipeline runs)  
+- **Athena/Redshift**: Raw table Curated table  
 
 ## Repository Structure
 ```text
