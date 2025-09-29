@@ -1,0 +1,101 @@
+[
+  {
+    "target_id": {
+      "N": "3"
+    },
+    "detail_value": {
+      "S": "gold/opencellid"
+    },
+    "detail_name": {
+      "S": "prefix_path"
+    }
+  },
+  {
+    "target_id": {
+      "N": "3"
+    },
+    "detail_value": {
+      "S": "celldata-results-w1"
+    },
+    "detail_name": {
+      "S": "target_location"
+    }
+  },
+  {
+    "detail_value": {
+      "S": "s3"
+    },
+    "target_id": {
+      "N": "3"
+    },
+    "detail_name": {
+      "S": "target_type"
+    }
+  },
+  {
+    "target_id": {
+      "N": "2"
+    },
+    "detail_value": {
+      "S": "silver/opencellid"
+    },
+    "detail_name": {
+      "S": "prefix_path"
+    }
+  },
+  {
+    "target_id": {
+      "N": "2"
+    },
+    "detail_value": {
+      "S": "celldata-curated-w1"
+    },
+    "detail_name": {
+      "S": "target_location"
+    }
+  },
+  {
+    "target_id": {
+      "N": "2"
+    },
+    "detail_value": {
+      "S": "s3"
+    },
+    "detail_name": {
+      "S": "target_type"
+    }
+  },
+  {
+    "target_id": {
+      "N": "1"
+    },
+    "detail_value": {
+      "S": "bronze/opencellid"
+    },
+    "detail_name": {
+      "S": "prefix_path"
+    }
+  },
+  {
+    "target_id": {
+      "N": "1"
+    },
+    "detail_value": {
+      "S": "celldata-raw-w1"
+    },
+    "detail_name": {
+      "S": "target_location"
+    }
+  },
+  {
+    "target_id": {
+      "N": "1"
+    },
+    "detail_value": {
+      "S": "s3"
+    },
+    "detail_name": {
+      "S": "target_type"
+    }
+  }
+]
