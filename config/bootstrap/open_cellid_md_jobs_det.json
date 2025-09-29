@@ -1,17 +1,35 @@
 [
   {
-    "job_id": {"N": "1"},
-    "param_value": {"S": "radio,mcc,mnc,lac,cid,lat,lon"},
-    "param_name": {"S": "expected_header"}
+    "job_id": {
+      "N": "1"
+    },
+    "detail_value": {
+      "S": "radio,mcc,mnc,lac,cid,lat,lon"
+    },
+    "detail_name": {
+      "S": "expected_header"
+    }
   },
   {
-    "job_id": {"N": "1"},
-    "param_value": {"S": "/celldata/opencellid/token"},
-    "param_name": {"S": "param_name"}
+    "job_id": {
+      "N": "1"
+    },
+    "detail_value": {
+      "S": "cell_towers.csv.gz"
+    },
+    "detail_name": {
+      "S": "file_name"
+    }
   },
   {
-    "job_id": {"N": "1"},
-    "param_value": {"S": "celldata-raw-w1"},
-    "param_name": {"S": "raw_bucket"}
+    "job_id": {
+      "N": "1"
+    },
+    "detail_value": {
+      "S": "/path/to/sql"
+    },
+    "detail_name": {
+      "S": "sql_file"
+    }
   }
 ]
