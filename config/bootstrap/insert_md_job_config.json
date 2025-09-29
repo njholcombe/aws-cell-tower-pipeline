@@ -1,0 +1,35 @@
+[
+  {
+    "job_id": {
+      "N": "1"
+    },
+    "config_value": {
+      "S": "Y"
+    },
+    "config_name": {
+      "S": "status#ActiveConfig"
+    }
+  },
+  {
+    "job_id": {
+      "N": "1"
+    },
+    "config_value": {
+      "S": "sf-intellicell-ingest-etl-dev-weekly-v001"
+    },
+    "config_name": {
+      "S": "stepfn#Name"
+    }
+  },
+  {
+    "job_id": {
+      "N": "1"
+    },
+    "config_value": {
+      "S": "Daily_OpenCellID_Ingest"
+    },
+    "config_name": {
+      "S": "trigger#EventBridge"
+    }
+  }
+]
