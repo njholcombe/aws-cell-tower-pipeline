@@ -6,7 +6,7 @@
       "Type": "Task",
       "Resource": "arn:aws:states:::lambda:invoke",
       "Parameters": {
-        "FunctionName": "arn:aws:lambda:us-west-2:575108915591:function:startjob:$LATEST",
+        "FunctionName": "arn:aws:lambda:us-west-x:xxxxxxxxxxxx:function:startjob:$LATEST",
         "Payload": {
           "ingest_date.$": "$.ingest_date",
           "rule_arn.$": "$.rule_arn"
@@ -28,7 +28,7 @@
       "Type": "Task",
       "Resource": "arn:aws:states:::lambda:invoke",
       "Parameters": {
-        "FunctionName": "arn:aws:lambda:us-west-2:575108915591:function:getjobdetails:$LATEST",
+        "FunctionName": "arn:aws:lambda:us-west-x:xxxxxxxxxxxx:function:getjobdetails:$LATEST",
         "Payload": {
           "job_id.$": "$.JobExecution.Payload.job_id",
           "ingest_date.$": "$.JobExecution.Payload.ingest_date",
@@ -51,7 +51,7 @@
       "Type": "Task",
       "Resource": "arn:aws:states:::lambda:invoke",
       "Parameters": {
-        "FunctionName": "arn:aws:lambda:us-west-2:575108915591:function:opencellid-pull:$LATEST",
+        "FunctionName": "arn:aws:lambda:us-west-x:xxxxxxxxxxxx:function:opencellid-pull:$LATEST",
         "Payload": {
           "job_details.$": "$.JobDetails.Payload"
         }
@@ -139,7 +139,7 @@
       "Type": "Task",
       "Resource": "arn:aws:states:::lambda:invoke",
       "Parameters": {
-        "FunctionName": "arn:aws:lambda:us-west-2:575108915591:function:buildintellicell_curated_sql:$LATEST",
+        "FunctionName": "arn:aws:lambda:us-west-x:xxxxxxxxxxxx:function:buildintellicell_curated_sql:$LATEST",
         "Payload": {
           "ingest_date.$": "$.JobExecution.Payload.ingest_date",
           "execution_id.$": "$.JobExecution.Payload.execution_id"
@@ -223,7 +223,7 @@
       "Type": "Task",
       "Resource": "arn:aws:states:::lambda:invoke",
       "Parameters": {
-        "FunctionName": "arn:aws:lambda:us-west-2:575108915591:function:completejob:$LATEST",
+        "FunctionName": "arn:aws:lambda:us-west-x:xxxxxxxxxxxx:function:completejob:$LATEST",
         "Payload": {
           "job_id.$": "$.JobExecution.Payload.job_id",
           "execution_id.$": "$.JobExecution.Payload.execution_id",
@@ -237,7 +237,7 @@
       "Type": "Task",
       "Resource": "arn:aws:states:::lambda:invoke",
       "Parameters": {
-        "FunctionName": "arn:aws:lambda:us-west-2:575108915591:function:completejob:$LATEST",
+        "FunctionName": "arn:aws:lambda:us-west-x:xxxxxxxxxxxx:function:completejob:$LATEST",
         "Payload": {
           "job_id.$": "$.JobExecution.Payload.job_id",
           "execution_id.$": "$.JobExecution.Payload.execution_id",
